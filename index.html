@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzy</title>
+    <style>
+        @font-face {
+            font-family: "Poppins";
+            src: url("assets/Poppins/poppins.otf");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 50px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f0f0;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrapper {
+            width: 500px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            outline: 0;
+        }
+
+        .input-group {
+            position: relative;
+            height: 41.6px;
+            margin-top: 24px;
+        }
+
+        label {
+            position: absolute;
+            left: 10px;
+            top: 20.8px;
+            transform: translateY(-50%);
+            color: #ccc;
+            transition: 300ms;
+        }
+
+        .input-group label.active {
+            top: -12px;
+            left: 0px;
+            color: #000;
+        }
+
+        button[type="submit"] {
+            background: #111;
+            color: #f0f0f0;
+            border: 0;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: -10px;
+        }
+
+        .error {
+            background: pink;
+            color: red;
+            border: 1px solid red;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <form action="#" method="POST">
+            <h1>Anmelden</h1>
+            <div class="error" id="error">
+                Error
+            </div>
+            <div class="input-group">
+                <label for="email">E-Mail Adresse</label>
+                <input type="email" name="email" id="email">
+            </div>
+            <div class="input-group">
+                <label for="pwd">Passwort</label>
+                <input type="password" name="pwd" id="pwd">
+            </div>
+            <div class="input-group">
+                <button type="submit" name="submit" id="submit">Einloggen</button>
+                <label for="#"></label>
+                <input type="hidden" name="" id="">
+            </div>
+            <p>Noch nicht registriert? <a href="register.html">Registrieren</a></p>
+        </form>
+    </div>
+
+    <script>
+        let inputGroups = document.querySelectorAll(".input-group");
+        inputGroups.forEach(inputGroup => {
+            let input = inputGroup.querySelector("input");
+            let label = inputGroup.querySelector("label");
+
+            input.onfocus = function () {
+                label.classList.add("active");
+            }
+
+            input.onblur = function () {
+                if (input.value.length < 1) {
+                    label.classList.remove("active");
+                }
+            }
+        });
+
+        let form = document.querySelector("form");
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                if (this.response == "success") {
+                    location.href = "home";
+                } else {
+                    document.getElementById("error").innerHTML = this.responseText;
+                    document.getElementById("error").style.display = "block";
+                }
+            }
+            xhttp.open("POST", "php/validate-login.php", true);
+            xhttp.send(new FormData(form));
+        });
+    </script>
+</body>
+
+</html>

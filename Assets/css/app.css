@@ -1,0 +1,29 @@
+:root {
+    --box_bg_color: #fff;
+    --main_theme: #000;
+    --second_theme: #333;
+    --third_theme: #eee;
+    --blue: #1259ff;
+    --red: #ff0000;
+    --black: #222;
+    --dark_grey: #333;
+    --shadow_grey: #ccc;
+    --white: #fff;
+    --rgba: rgba(197, 197, 197, 0.88);
+}
+
+.dark_mode {
+    --third_theme: #343434;
+    --second_theme: #fff;
+    --white: #111;
+    --main_theme: #fff;
+    --box_bg_color: #333;
+}
+
+.add-btn i{
+        color: #fff;
+}
+
+.nav{
+    border-right: 0px solid #111 !important;
+}
